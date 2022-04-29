@@ -1,48 +1,38 @@
-# #EX 1
-# class Pessoa:
-#     def __init__(self, identificador, nome):
-#         self.identificador = identificador
-#         self.nome = nome
+from abc import ABC, abstractmethod
 
-
-# class PessoaJuridica(Pessoa):
-#     def __init__(self, cnpj, nome, identificador):
-#         super().__init__(identificador, nome)
-#         self.cnpj = cnpj
-
-
-# class PessoaFisica(Pessoa):
-#     def __init__(self, rg, cpf, nome, identificador):
-#         super().__init__(identificador, nome)
-#         self.rg = rg
-#         self.cpf = cpf
-
-# EX 2
-
-class Animal:
-    def __init__(self, nome, cor, numero_patas):
+class Animal(ABC):
+    @abstractmethod
+    def __init__(self, nome, idade):
         self.nome = nome
-        self.cor = cor
-        self.numero_patas = numero_patas
+        self.idade = idade
 
-    def exibir_dados(self):
-        print('Nome:', self.nome)
-        print('cor', self.cor)
-        print('numero_patas', self.numero_patas)
 
+class Veterinario:
+    def examinar(self, animal): 
+        animal.emitir_som()
+ 
 
 class Cachorro(Animal):
-    def __init__(self, raca, nome, cor, numero_patas):
-        super().__init__(nome, cor, numero_patas)
-        self.raca = raca
+    def emitir_som(self):
+        print("au au")
 
-    def exibir_dados(self):
-        super().exibir_dados()
-        print('raca', self.raca)
+class Gato(Animal):
+    def emitir_som(self):
+        print("miau miau")
 
+class Cavalo(Animal):
+    def emitir_som(self):
+        print("cavalo")
 
-animal = Animal("Passarinho", "Azul", 2)
-animal.exibir_dados()       # exibe os atributos do animal
+dog = Cachorro("Rex", 3)
+horse = Cavalo("Horse", 6)
+cat = Gato("Tina", 1)
 
-dog = Cachorro("Rex", "Marrom", 4, "Vira lata")
-dog.exibir_dados()          # exibe os atributos do cachorro
+dog.emitir_som()          # exibe o som do cachorro
+horse.emitir_som()        # exibe o som do cavalo
+cat.emitir_som()          # exibe o som do gato
+
+vet = Veterinario()
+vet.examinar(dog)         # exibe o som do cachorro 
+vet.examinar(horse)       # exibe o som do cavalo 
+vet.examinar(cat)         # exibe o som do gato
